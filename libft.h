@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 16:35:33 by niragne           #+#    #+#             */
-/*   Updated: 2016/11/22 17:13:51 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/16 04:00:55 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <string.h>
-# define BUFF_SIZE 64
+# define BUFF_SIZE 1
 
 typedef struct	s_list
 {
@@ -24,14 +24,16 @@ typedef struct	s_list
 
 typedef struct	s_point
 {
-	float				x;
-	float				y;
+	int					x;
+	int					y;
+	int					z;
 }				t_point;
 
 typedef struct	s_vector
 {
-	float				x;
-	float				y;
+	int					x;
+	int					y;
+	int					z;
 }				t_vector;
 
 void			ft_putchar(char c);
@@ -89,13 +91,13 @@ char			*ft_strncat(char *s1, const char *s2, size_t n);
 size_t			ft_strlcat(char *s1, const char *s2, size_t n);
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
-t_point			*ft_newpoint(float x, float y);
-t_point			*ft_get_middle(t_point *a, t_point *b);
+t_point			ft_newpoint(int x, int y, int z);
+t_point			ft_get_middle(t_point a, t_point b);
 void			ft_lstdel(t_list **alst, void(*del)(void*, size_t));
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-t_vector		*ft_newvector(float x, float y);
-t_point			*ft_translation(t_point *p, t_vector *v);
+t_vector		*ft_newvector(int x, int y, int z);
+t_point			ft_translation(t_point p, t_vector v);
 int				ft_iscollinear(t_vector *v, t_vector *w);
 t_vector		*ft_getvector(t_point *a, t_point *b);
 int				ft_isupper(int c);
