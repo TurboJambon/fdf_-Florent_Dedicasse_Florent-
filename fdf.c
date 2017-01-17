@@ -6,16 +6,19 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/16 05:32:32 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/17 02:42:16 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
+#define MAPX 19
+#define MAPY 11
+
 void	ft_trace(t_point a, t_point b, t_env *e) // Trace des segments
 {
-	static int color = 0xFF02;
+	int color = 0xFF02;
 	float dx;
 	float dy;
 	float l;
@@ -27,6 +30,8 @@ void	ft_trace(t_point a, t_point b, t_env *e) // Trace des segments
 	i = 0;
 	while (i < l)
 	{
+		if (b.z)
+			color = 0xFFFF;
 		mlx_pixel_put(e->mlx, e->win, 
 		a.x + ((dx / l) * i), 		
 		a.y + ((dy / l) * i), 		
@@ -35,20 +40,40 @@ void	ft_trace(t_point a, t_point b, t_env *e) // Trace des segments
 	}
 }
 
-void	ft_wireframe(t_point **map, t_env *e)
+void	apply_z(t_point ***map, int mapx, int mapy)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	while (map[i]->x)
+	while (i < mapy)
 	{
-		while (map[i][j].x)
+		while (j < mapx)
 		{
-			if (map[i][j + 1].x)
+			map[0][i][j].x -= map[0][i][j].z * 10;
+			map[0][i][j].y -= map[0][i][j].z * 10;
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
+void	ft_wireframe(t_point **map, t_env *e, int mapx, int mapy)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (i < mapy)
+	{
+		while (j < mapx)
+		{
+			if (j < mapx - 1)
 				ft_trace(map[i][j], map[i][j + 1], e);
-			if (map[i + 1][j].x)
+			if (i < mapy - 1)
 				ft_trace(map[i][j], map[i + 1][j], e);
 			j++;
 		}
@@ -73,19 +98,18 @@ int main(int ac, char **av)
 	t_env e;
 	int k=0;
 	t_point		**salut;
-	t_point a;
-	t_point b;
-
-	a = ft_newpoint(50,50,50);
-	b = ft_newpoint(75,75,75);
+	int *dims;
 
 	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, 1080, 720, "banane");
+	e.win = mlx_new_window(e.mlx, 1500, 1000, "banane");
 	fd = open(av[1], O_RDONLY);
 	map = ft_getmap(fd);
-	while (map[i])
+	printf("JOHARNO\n");
+	dims = get_map_dims(map);
+	printf("SALUT LES GROS GARS%d, %d\n", dims[0], dims[1]);
+	while (i < dims[1])
 	{
-		while (map[i][j])
+		while (j < dims[0])
 		{
 			printf("%s ", map[i][j]);
 			j++;
@@ -95,10 +119,43 @@ int main(int ac, char **av)
 		i++;	
 	}
 	printf("BA\n");
-	salut = convert_map(map, 50, 50, 50);
-	//printf("SAUCISSE\n");
-	//ft_wireframe(salut, &e);
+	salut = convert_map(map, 450, 250, 100, dims[0], dims[1]);
+	printf("SAUCISSE\n");
+	i = 0; j = 0;
+	while (i < dims[1])
+	{
+		while (j < dims[0])
+		{
+			printf("%d ", salut[i][j].x);
+			j++;
+		}
+		j = 0;
+		i++;
+		printf(" \n");
+	}
+	printf("sous la saucisse\n");
+	apply_z(&salut, dims[0], dims[1]);
+	ft_wireframe(salut, &e, dims[0], dims[1]);
 	mlx_key_hook(e.win, key_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
