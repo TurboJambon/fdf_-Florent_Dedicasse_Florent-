@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:22:33 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/17 02:42:23 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/17 03:07:10 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_point		**convert_map(char	***map, int x, int y, int inc, int mapx, int mapy)
 		while (j < mapx)
 		{
 			//printf("bananananananananana %s\n", map[i][j]);
-			ret[i][j] = ft_newpoint(x + inc * j + i * 20, y + inc * i, ft_atoi(map[i][j]));
+			ret[i][j] = ft_newpoint(x + inc * j, y + inc * i, ft_atoi(map[i][j]));
 			//printf("i: %d, j: %d, x: %d, y:%d, z: %d\n", i, j, ret[i][j].x, ret[i][j].y, ret[i][j].z);
 			j++;
 		}

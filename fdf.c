@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/17 02:42:16 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/17 03:38:08 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	apply_z(t_point ***map, int mapx, int mapy)
 	{
 		while (j < mapx)
 		{
-			map[0][i][j].x -= map[0][i][j].z * 10;
+			map[0][i][j].x -= map[0][i][j].z * 5;
 			map[0][i][j].y -= map[0][i][j].z * 10;
 			j++;
 		}
@@ -119,14 +119,14 @@ int main(int ac, char **av)
 		i++;	
 	}
 	printf("BA\n");
-	salut = convert_map(map, 450, 250, 100, dims[0], dims[1]);
+	salut = convert_map(map, 200, 250, 70, dims[0], dims[1]);
 	printf("SAUCISSE\n");
 	i = 0; j = 0;
 	while (i < dims[1])
 	{
 		while (j < dims[0])
 		{
-			printf("%d ", salut[i][j].x);
+			printf("%d;%d ", salut[i][j].x, salut[i][j].y);
 			j++;
 		}
 		j = 0;
