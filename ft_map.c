@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:22:33 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/20 16:30:26 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/20 18:35:21 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-char	***ft_getmap(int fd)
+char		***ft_getmap(int fd)
 {
 	char	*tmp;
 	char	**ret;
@@ -75,11 +75,10 @@ int			*get_map_dims(char ***map)
 	return (dims);
 }
 
-
-t_point		**convert_map(char	***map, t_info info)
+t_point		**convert_map(char ***map, t_info info)
 {
-	int 	i;
-	int 	j;
+	int		i;
+	int		j;
 	t_point	**ret;
 
 	i = 0;
@@ -90,13 +89,11 @@ t_point		**convert_map(char	***map, t_info info)
 		ret[i] = malloc(sizeof(t_point) * info.mapx);
 		while (j < info.mapx)
 		{
-			//printf("bananananananananana %s\n", map[i][j]);
-			ret[i][j] = ft_newpoint(
-			((j * info.sq_size + info.sq_size / 2) + (((i - 1) * info.sq_size) / 2)) -
-			j * info.sq_size / 2 + info.firstx,
-			((((i * info.sq_size) / 2)) - j * info.sq_size / 2 + info.firsty * 1.3) / 2,
+			ret[i][j] = ft_newpoint(((j
+			* info.sq_size + info.sq_size / 2) + (((i - 1) * info.sq_size) / 2))
+			- j * info.sq_size / 2 + info.firstx, ((((i * info.sq_size) / 2))
+			- j * info.sq_size / 2 + info.firsty * 1.3) / 2,
 			ft_atoi(map[i][j]));
-			//printf("i: %d, j: %d, x: %d, y:%d, z: %d\n", i, j, ret[i][j].x, ret[i][j].y, ret[i][j].z);
 			j++;
 		}
 		j = 0;
@@ -105,4 +102,18 @@ t_point		**convert_map(char	***map, t_info info)
 	return (ret);
 }
 
+int			ft_checkmap(char ***map)
+{
+	int i;
+	int max;
 
+	max = ft_tablen(map[0]);
+	i = 1;
+	while (map[i])
+	{
+		if (ft_tablen(map[i]) != max)
+			return (-1);
+		i++;
+	}
+	return (1);
+}

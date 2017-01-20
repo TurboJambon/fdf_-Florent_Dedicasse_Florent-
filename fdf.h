@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/20 16:07:00 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/20 18:36:45 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_env
 	void *image;
 }				t_env;
 
-typedef struct s_map
+typedef struct	s_map
 {
 	t_point	**map;
 	int		x;
@@ -38,16 +38,16 @@ typedef struct s_map
 
 }				t_map;
 
-typedef struct 	s_trace
+typedef struct	s_trace
 {
 	float	dx;
 	float	dy;
 	float	l;
-	float 	dxl; 
-	float 	dyl;
+	float	dxl;
+	float	dyl;
 }				t_trace;
 
-typedef struct 	s_info
+typedef struct	s_info
 {
 	int		mapx;
 	int		mapy;
@@ -60,14 +60,12 @@ typedef struct 	s_info
 	int		lowest;
 }				t_info;
 
-int				ft_checkmap(char **str);
+int				ft_checkmap(char ***map);
 char			***ft_getmap(int fd);
 t_point			**convert_map(char	***map, t_info info);
 int				ft_doubletablen(char ***tab);
 int				*get_map_dims(char ***map);
 t_info			ft_get_info(char ***map);
 int				ft_puterr(char *str);
-
-
 
 #endif
