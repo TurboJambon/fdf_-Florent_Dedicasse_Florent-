@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 16:35:33 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/16 04:00:55 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/18 21:53:43 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ void			ft_foreach(int *tab, int length, void (*f)(int));
 char			*ft_rot(char *str, int r);
 void			*ft_realloc(void *ptr, size_t size);
 char			*fd_to_str(int fd);
+int				ft_abs(int i);
 
 #endif

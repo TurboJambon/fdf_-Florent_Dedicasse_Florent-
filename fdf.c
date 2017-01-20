@@ -6,53 +6,47 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/18 16:20:19 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/20 16:34:55 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
-#define MAPX 19
-#define MAPY 11
-
 void	ft_trace(t_point a, t_point b, t_env *e) // Trace des segments
 {
-	int color = 0xFF02;
-	float dx;
-	float dy;
-	float l;
+	int color = WHITE;
+	t_trace seg;
 	int i;
 
-	dx = b.x - a.x;
-	dy = b.y - a.y;
-	l = sqrt(pow(b.x + b.y, 2));
+	seg.dx = b.x - a.x;
+	seg.dy = b.y - a.y;
+	seg.l = b.x + b.y;
+	seg.dxl = seg.dx / seg.l;
+	seg.dyl = seg.dy / seg.l;
 	i = 0;
-	while (i < l)
+	while (i < seg.l)
 	{
 		if (b.z || a.z)
-			color = 0xFFFF;
-		mlx_pixel_put(e->mlx, e->win, 
-		a.x + ((dx / l) * i), 		
-		a.y + ((dy / l) * i), 		
-		color);
+			color = WHITE;
+		mlx_pixel_put(e->image, e->win, a.x + (seg.dxl * i), a.y + ((seg.dyl) * i), color);
 		i++;
 	}
 }
 
-void	apply_z(t_point ***map, int mapx, int mapy)
+void	apply_z(t_point ***map, t_info info)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	while (i < mapy)
+	while (i < info.mapy)
 	{
-		while (j < mapx)
+		while (j < info.mapx)
 		{
 			//map[0][i][j].x += map[0][i][j].z * 2;
-			map[0][i][j].y -= map[0][i][j].z * 15;
+			map[0][i][j].y -= map[0][i][j].z * info.sq_size / 1.5;
 			j++;
 		}
 		j = 0;
@@ -86,6 +80,8 @@ int key_hook(int keycode, t_env *e)
 {
 	if (keycode == 53)
 		exit(0);
+	if (keycode)
+		printf("%i\n", keycode);
 	return (0);
 }
 
@@ -99,14 +95,20 @@ int main(int ac, char **av)
 	int k=0;
 	t_point		**salut;
 	int *dims;
+	t_info info;
 
-	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, 2560, 1440, "banane");
 	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+		return (ft_puterr("aaaa"));
 	map = ft_getmap(fd);
+	info = ft_get_info(map);
+	e.mlx = mlx_init();
+	e.win = mlx_new_window(e.mlx, info.winx, info.winy, "banane");
+	e.image = mlx_new_image(e.mlx, info.winx, info.winy);
+	mlx_put_image_to_window(e.mlx, e.win, e.image, 0, 0);
 	printf("JOHARNO\n");
 	dims = get_map_dims(map);
-	printf("SALUT LES GROS GARS%d, %d\n", dims[0], dims[1]);
+	printf("SALUT LES GROS GARS %d, %d\n", dims[0], dims[1]);
 	while (i < dims[1])
 	{
 		while (j < dims[0])
@@ -119,7 +121,7 @@ int main(int ac, char **av)
 		i++;	
 	}
 	printf("BA\n");
-	salut = convert_map(map, 200, 200, 15, dims[0], dims[1]);
+	salut = convert_map(map, info);
 	printf("SAUCISSE\n");
 	i = 0; j = 0;
 	while (i < dims[1])
@@ -134,28 +136,10 @@ int main(int ac, char **av)
 		printf(" \n");
 	}
 	printf("sous la saucisse\n");
-	apply_z(&salut, dims[0], dims[1]);
+	printf("winx %d winy %d sq size %d mapx %d mapy %d firstx %d firsty %d highest %d lowest %d\n", info.winx, info.winy, info.sq_size, info.mapx, info.mapy, info.firstx, info.firsty, info.highest, info.lowest);
+	apply_z(&salut, info);
 	ft_wireframe(salut, &e, dims[0], dims[1]);
 	mlx_key_hook(e.win, key_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

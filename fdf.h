@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/17 02:27:37 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/20 16:07:00 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 # include <mlx.h>
 # include <stdlib.h>
 
-
 typedef struct	s_env
 {
 	void *mlx;
 	void *win;
-
+	void *image;
 }				t_env;
 
 typedef struct s_map
@@ -39,12 +38,35 @@ typedef struct s_map
 
 }				t_map;
 
+typedef struct 	s_trace
+{
+	float	dx;
+	float	dy;
+	float	l;
+	float 	dxl; 
+	float 	dyl;
+}				t_trace;
+
+typedef struct 	s_info
+{
+	int		mapx;
+	int		mapy;
+	int		winx;
+	int		winy;
+	int		sq_size;
+	int		firstx;
+	int		firsty;
+	int		highest;
+	int		lowest;
+}				t_info;
+
 int				ft_checkmap(char **str);
 char			***ft_getmap(int fd);
-t_point			**convert_map(char	***map, int x, int y, int inc, int mapx, int mapy);
+t_point			**convert_map(char	***map, t_info info);
 int				ft_doubletablen(char ***tab);
 int				*get_map_dims(char ***map);
-
+t_info			ft_get_info(char ***map);
+int				ft_puterr(char *str);
 
 
 
