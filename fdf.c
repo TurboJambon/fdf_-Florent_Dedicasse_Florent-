@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/20 18:38:42 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/20 19:54:54 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,21 +92,47 @@ int		main(int ac, char **av)
 	t_point	**salut;
 	t_info	info;
 
+	ft_putstr("1\n");
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
-		return (ft_puterr("aaaa"));
+		return (ft_puterr(ERR_FILE));
+		ft_putstr("2\n");
+
 	map = ft_getmap(fd);
+		ft_putstr("3\n");
+
 	if (ft_checkmap(map) == -1)
-		return (ft_puterr("tarete"));
+		return (ft_puterr(ERR_MAP));
+		ft_putstr("4\n");
+
 	info = ft_get_info(map);
-	e.mlx = mlx_init();
+		ft_putstr("5\n");
+
+	if (!(e.mlx = mlx_init()))
+		return (ft_puterr(ERR_WINDOW));
+		ft_putstr("6\n");
+
 	e.win = mlx_new_window(e.mlx, info.winx, info.winy, "banane");
+		ft_putstr("7\n");
+
 	e.image = mlx_new_image(e.mlx, info.winx, info.winy);
+		ft_putstr("8\n");
+
 	mlx_put_image_to_window(e.mlx, e.win, e.image, 0, 0);
+		ft_putstr("9\n");
+
 	salut = convert_map(map, info);
+		ft_putstr("10\n");
+
 	apply_z(&salut, info);
+		ft_putstr("11\n");
+
 	ft_wireframe(salut, &e, info.mapx, info.mapy);
+		ft_putstr("12\n");
+
 	mlx_key_hook(e.win, key_hook, &e);
+		ft_putstr("13\n");
+
 	mlx_loop(e.mlx);
 	return (0);
 }

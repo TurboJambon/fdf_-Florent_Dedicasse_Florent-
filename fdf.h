@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/20 18:36:45 by niragne          ###   ########.fr       */
+/*   Updated: 2017/01/20 18:41:43 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <math.h>
 # include <mlx.h>
 # include <stdlib.h>
+# define ERR_WINDOW "window error"
+# define ERR_FILE "file error"
+# define ERR_MAP "map error"
 
 typedef struct	s_env
 {
