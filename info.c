@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 17:03:01 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/03 04:04:55 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/03 04:52:34 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,13 @@ t_info	ft_get_info(char ***map)
 void	change_info(t_info *info, int keycode)
 {
 	if (keycode == 69)
-	{
-		printf("%d\n", keycode);
 		info->scale += 2;
-	}
 	if (keycode == 78)
-	{
-		printf("%d %d\n", keycode, info->scale);
 		info->scale -= 2;
-	}
 	if (keycode == 116)
-	{
 		info->sq_size += 1;
-		info->scale = info->scalebase + info->sq_size / 3;
-	}
 	if (keycode == 121)
-	{
 		info->sq_size -= 1;
-		info->scale = info->scalebase + info->sq_size / 3;
-	}
 	if (keycode == 124)
 		info->firstx -= 10;
 	if (keycode == 123)

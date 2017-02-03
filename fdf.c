@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/03 04:21:11 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/03 05:10:39 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,10 @@
 #include <stdio.h>
 #define ABS(x) (x < 0 ? -x : x)
 
-void	ft_trace(t_point a, t_point b, t_env *e)
-{
-	int		color;
-	t_trace seg;
-	float		i;
-
-	color = WHITE;
-	seg.dx = b.x - a.x;
-	seg.dy = b.y - a.y;
-	seg.l = ABS(seg.dx) > ABS(seg.dy) ? ABS(seg.dx) : ABS(seg.dy);
-	seg.dxl = seg.dx / seg.l;
-	seg.dyl = seg.dy / seg.l;
-	i = 0;
-	while (i < seg.l)
-	{
-		mlx_pixel_put(e->image, e->win, a.x + seg.dxl * i, a.y + seg.dyl * i, color);
-		i++;
-	}
-}
-
 t_point	**apply_z(t_point **map, t_info info)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 	t_point **ret;
 
 	i = 0;
@@ -48,7 +28,8 @@ t_point	**apply_z(t_point **map, t_info info)
 		ret[i] = malloc(sizeof(t_point) * info.mapx);
 		while (j < info.mapx)
 		{
-			ret[i][j] = ft_newpoint(map[i][j].x, map[i][j].y - map[i][j].z * info.scale, 0);
+			ret[i][j] = ft_newpoint(map[i][j].x,
+			map[i][j].y - map[i][j].z * info.scale, 0);
 			j++;
 		}
 		j = 0;
@@ -59,13 +40,13 @@ t_point	**apply_z(t_point **map, t_info info)
 
 t_point	**recalc(t_point **map, t_info info)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 	t_point **ret;
 
 	i = 0;
 	j = 0;
-	ret = malloc(sizeof(t_point*) * info.mapy); 
+	ret = malloc(sizeof(t_point*) * info.mapy);
 	while (i < info.mapy)
 	{
 		ret[i] = malloc(sizeof(t_point) * info.mapx);
@@ -96,13 +77,15 @@ void	ft_wireframe(t_point **map, t_env *e, t_info info)
 	{
 		while (j < info.mapx)
 		{
-			if (j < info.mapx - 1 && 
-				(map[i][j].x + info.sq_size > 0 && map[i][j].x - info.sq_size < info.winx) &&
-				map[i][j].y + info.sq_size > 0 && map[i][j].y - info.sq_size < info.winy)
+			if (j < info.mapx - 1 &&
+				(map[i][j].x + info.sq_size > 0 && map[i][j].x - info.sq_size <
+				info.winx) && map[i][j].y +
+				info.sq_size > 0 && map[i][j].y - info.sq_size < info.winy)
 				ft_trace(map[i][j], map[i][j + 1], e);
-			if (i < info.mapy - 1 && 
-				(map[i][j].x + info.sq_size > 0 && map[i][j].x - info.sq_size < info.winx) &&
-				map[i][j].y + info.sq_size > 0 && map[i][j].y - info.sq_size < info.winy)
+			if (i < info.mapy - 1 &&
+				(map[i][j].x + info.sq_size > 0 && map[i][j].x - info.sq_size <
+				info.winx) && map[i][j].y +
+				info.sq_size > 0 && map[i][j].y - info.sq_size < info.winy)
 				ft_trace(map[i][j], map[i + 1][j], e);
 			j++;
 		}
@@ -115,7 +98,7 @@ int		key_hook(int keycode, t_env *e)
 {
 	if (keycode == 53)
 		exit(0);
-	if (keycode == 69 || keycode == 78 || keycode == 116 || keycode == 121 || 
+	if (keycode == 69 || keycode == 78 || keycode == 116 || keycode == 121 ||
 		(keycode >= 123 && keycode <= 126))
 	{
 		mlx_clear_window(e->mlx, e->win);

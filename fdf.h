@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/03 03:48:59 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/03 05:11:14 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ typedef struct	s_env
 	void	*mlx;
 	void	*win;
 	void	*image;
-	t_info 	info;
+	t_info	info;
 	t_map	map;
 	t_map	ref;
 }				t_env;
 
+void			ft_trace(t_point a, t_point b, t_env *e);
 int				ft_checkmap(char ***map);
 char			***ft_getmap(int fd);
 t_point			**convert_map(char	***map, t_info info);
