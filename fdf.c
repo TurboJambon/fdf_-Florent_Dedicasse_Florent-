@@ -6,37 +6,86 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/20 19:54:54 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/03 04:21:11 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
+#define ABS(x) (x < 0 ? -x : x)
 
 void	ft_trace(t_point a, t_point b, t_env *e)
 {
 	int		color;
 	t_trace seg;
-	int		i;
+	float		i;
 
 	color = WHITE;
 	seg.dx = b.x - a.x;
 	seg.dy = b.y - a.y;
-	seg.l = b.x + b.y;
+	seg.l = ABS(seg.dx) > ABS(seg.dy) ? ABS(seg.dx) : ABS(seg.dy);
 	seg.dxl = seg.dx / seg.l;
 	seg.dyl = seg.dy / seg.l;
 	i = 0;
 	while (i < seg.l)
 	{
-		if (b.z || a.z)
-			color = WHITE;
-		mlx_pixel_put(e->image, e->win, a.x + (seg.dxl * i), a.y +
-			((seg.dyl) * i), color);
+		mlx_pixel_put(e->image, e->win, a.x + seg.dxl * i, a.y + seg.dyl * i, color);
 		i++;
 	}
 }
 
-void	apply_z(t_point ***map, t_info info)
+t_point	**apply_z(t_point **map, t_info info)
+{
+	int i;
+	int j;
+	t_point **ret;
+
+	i = 0;
+	j = 0;
+	ret = malloc(sizeof(t_point*) * info.mapy);
+	while (i < info.mapy)
+	{
+		ret[i] = malloc(sizeof(t_point) * info.mapx);
+		while (j < info.mapx)
+		{
+			ret[i][j] = ft_newpoint(map[i][j].x, map[i][j].y - map[i][j].z * info.scale, 0);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (ret);
+}
+
+t_point	**recalc(t_point **map, t_info info)
+{
+	int i;
+	int j;
+	t_point **ret;
+
+	i = 0;
+	j = 0;
+	ret = malloc(sizeof(t_point*) * info.mapy); 
+	while (i < info.mapy)
+	{
+		ret[i] = malloc(sizeof(t_point) * info.mapx);
+		while (j < info.mapx)
+		{
+			ret[i][j] = ft_newpoint(((j
+			* info.sq_size + info.sq_size / 2) + (((i - 1) * info.sq_size) / 2))
+			- j * info.sq_size / 2 + info.firstx, ((((i * info.sq_size) / 2))
+			- j * info.sq_size / 2 + info.firsty * 1.3) / 2,
+			map[i][j].z);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	ret = apply_z(ret, info);
+	return (ret);
+}
+
+void	ft_wireframe(t_point **map, t_env *e, t_info info)
 {
 	int i;
 	int j;
@@ -47,28 +96,13 @@ void	apply_z(t_point ***map, t_info info)
 	{
 		while (j < info.mapx)
 		{
-			map[0][i][j].y -= map[0][i][j].z * info.sq_size / 1.3;
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-}
-
-void	ft_wireframe(t_point **map, t_env *e, int mapx, int mapy)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (i < mapy)
-	{
-		while (j < mapx)
-		{
-			if (j < mapx - 1)
+			if (j < info.mapx - 1 && 
+				(map[i][j].x + info.sq_size > 0 && map[i][j].x - info.sq_size < info.winx) &&
+				map[i][j].y + info.sq_size > 0 && map[i][j].y - info.sq_size < info.winy)
 				ft_trace(map[i][j], map[i][j + 1], e);
-			if (i < mapy - 1)
+			if (i < info.mapy - 1 && 
+				(map[i][j].x + info.sq_size > 0 && map[i][j].x - info.sq_size < info.winx) &&
+				map[i][j].y + info.sq_size > 0 && map[i][j].y - info.sq_size < info.winy)
 				ft_trace(map[i][j], map[i + 1][j], e);
 			j++;
 		}
@@ -81,6 +115,13 @@ int		key_hook(int keycode, t_env *e)
 {
 	if (keycode == 53)
 		exit(0);
+	if (keycode == 69 || keycode == 78 || keycode == 116 || keycode == 121 || 
+		(keycode >= 123 && keycode <= 126))
+	{
+		mlx_clear_window(e->mlx, e->win);
+		change_info(&e->info, keycode);
+		ft_wireframe(recalc(e->map.map, e->info), e, e->info);
+	}
 	return (0);
 }
 
@@ -89,50 +130,23 @@ int		main(int ac, char **av)
 	int		fd;
 	char	***map;
 	t_env	e;
-	t_point	**salut;
-	t_info	info;
 
-	ft_putstr("1\n");
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (ft_puterr(ERR_FILE));
-		ft_putstr("2\n");
-
 	map = ft_getmap(fd);
-		ft_putstr("3\n");
-
 	if (ft_checkmap(map) == -1)
 		return (ft_puterr(ERR_MAP));
-		ft_putstr("4\n");
-
-	info = ft_get_info(map);
-		ft_putstr("5\n");
-
+	e.info = ft_get_info(map);
 	if (!(e.mlx = mlx_init()))
 		return (ft_puterr(ERR_WINDOW));
-		ft_putstr("6\n");
-
-	e.win = mlx_new_window(e.mlx, info.winx, info.winy, "banane");
-		ft_putstr("7\n");
-
-	e.image = mlx_new_image(e.mlx, info.winx, info.winy);
-		ft_putstr("8\n");
-
+	e.win = mlx_new_window(e.mlx, e.info.winx, e.info.winy, "fdf");
+	e.image = mlx_new_image(e.mlx, e.info.winx, e.info.winy);
 	mlx_put_image_to_window(e.mlx, e.win, e.image, 0, 0);
-		ft_putstr("9\n");
-
-	salut = convert_map(map, info);
-		ft_putstr("10\n");
-
-	apply_z(&salut, info);
-		ft_putstr("11\n");
-
-	ft_wireframe(salut, &e, info.mapx, info.mapy);
-		ft_putstr("12\n");
-
+	e.map.map = convert_map(map, e.info);
+	apply_z(e.map.map, e.info);
+	ft_wireframe(apply_z(e.map.map, e.info), &e, e.info);
 	mlx_key_hook(e.win, key_hook, &e);
-		ft_putstr("13\n");
-
 	mlx_loop(e.mlx);
 	return (0);
 }

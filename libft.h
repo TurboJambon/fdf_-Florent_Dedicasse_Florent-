@@ -6,14 +6,18 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 16:35:33 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/18 21:53:43 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/03 01:20:49 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <string.h>
-# define BUFF_SIZE 1
+# include <limits.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# define BUFF_SIZE 128000
 
 typedef struct	s_list
 {
@@ -36,6 +40,14 @@ typedef struct	s_vector
 	int					z;
 }				t_vector;
 
+typedef struct	s_gnl
+{
+	char				*tmp;
+	int					rd;
+	char				buf[BUFF_SIZE + 1];
+}				t_gnl;
+
+int				get_next_line(const int fd, char **line);
 void			ft_putchar(char c);
 size_t			ft_strlen(char const *s);
 void			ft_putstr(char const *s);
@@ -116,6 +128,5 @@ void			ft_foreach(int *tab, int length, void (*f)(int));
 char			*ft_rot(char *str, int r);
 void			*ft_realloc(void *ptr, size_t size);
 char			*fd_to_str(int fd);
-int				ft_abs(int i);
 
 #endif

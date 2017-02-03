@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/01/20 18:41:43 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/03 03:48:59 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@
 # define ERR_WINDOW "window error"
 # define ERR_FILE "file error"
 # define ERR_MAP "map error"
-
-typedef struct	s_env
-{
-	void *mlx;
-	void *win;
-	void *image;
-}				t_env;
 
 typedef struct	s_map
 {
@@ -61,7 +54,19 @@ typedef struct	s_info
 	int		firsty;
 	int		highest;
 	int		lowest;
+	int		scale;
+	int		scalebase;
 }				t_info;
+
+typedef struct	s_env
+{
+	void	*mlx;
+	void	*win;
+	void	*image;
+	t_info 	info;
+	t_map	map;
+	t_map	ref;
+}				t_env;
 
 int				ft_checkmap(char ***map);
 char			***ft_getmap(int fd);
@@ -70,5 +75,5 @@ int				ft_doubletablen(char ***tab);
 int				*get_map_dims(char ***map);
 t_info			ft_get_info(char ***map);
 int				ft_puterr(char *str);
-
+void			change_info(t_info *info, int keycode);
 #endif
