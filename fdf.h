@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/03 05:11:14 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/04 16:22:59 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@
 # define ERR_WINDOW "window error"
 # define ERR_FILE "file error"
 # define ERR_MAP "map error"
+# define WIN_X 2560 / 2
+# define WIN_Y 1440 / 2
+# define LEFTARROW 123
+# define RIGHTARROW 124
+# define DOWNARROW 125
+# define UPARROW 126
+# define PGUP 116
+# define PGDOWN 121
+# define KP_MINUS 78
+# define KP_PLUS 69
 
 typedef struct	s_map
 {
@@ -65,7 +75,6 @@ typedef struct	s_env
 	void	*image;
 	t_info	info;
 	t_map	map;
-	t_map	ref;
 }				t_env;
 
 void			ft_trace(t_point a, t_point b, t_env *e);
@@ -76,5 +85,5 @@ int				ft_doubletablen(char ***tab);
 int				*get_map_dims(char ***map);
 t_info			ft_get_info(char ***map);
 int				ft_puterr(char *str);
-void			change_info(t_info *info, int keycode);
+int				change_info(t_info *info, int keycode);
 #endif

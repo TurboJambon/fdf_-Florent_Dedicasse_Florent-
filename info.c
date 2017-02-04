@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 17:03:01 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/03 04:52:34 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/04 16:59:05 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ t_info	ft_get_info(char ***map)
 	dims = get_map_dims(map);
 	ret.mapx = dims[0];
 	ret.mapy = dims[1];
-	ret.sq_size = (dims[0] > dims[1]) ? 1000 / dims[0] : 1000 / dims[1];
-	ret.winx = (ret.sq_size * ret.mapx > 2560) ? 2560 : ret.sq_size * ret.mapx;
-	ret.winy = 300 + ret.sq_size / 3 * ret.mapy + ret.sq_size * dims[2];
+	ret.winx = WIN_X;
+	ret.winy = WIN_Y;
+	ret.sq_size = (ret.mapx > ret.mapy) ?
+	ret.winx / ret.mapx : ret.winy / ret.mapy;
 	if (ret.winy > 1440)
 		ret.winy = 1440;
 	ret.highest = dims[2];
@@ -34,22 +35,29 @@ t_info	ft_get_info(char ***map)
 	return (ret);
 }
 
-void	change_info(t_info *info, int keycode)
+int		change_info(t_info *info, int keycode)
 {
-	if (keycode == 69)
+	if (keycode == KP_PLUS)
+	{
 		info->scale += 2;
-	if (keycode == 78)
+		return (1);
+	}
+	if (keycode == KP_MINUS)
+	{
 		info->scale -= 2;
-	if (keycode == 116)
-		info->sq_size += 1;
-	if (keycode == 121)
-		info->sq_size -= 1;
-	if (keycode == 124)
-		info->firstx -= 10;
-	if (keycode == 123)
-		info->firstx += 10;
-	if (keycode == 126)
-		info->firsty += 10;
-	if (keycode == 125)
-		info->firsty -= 10;
+		return (1);
+	}
+	if (keycode == PGUP)
+		return (info->sq_size += 1);
+	if (keycode == PGDOWN)
+		return (info->sq_size -= 1);
+	if (keycode == RIGHTARROW)
+		return (info->firstx -= 10);
+	if (keycode == LEFTARROW)
+		return (info->firstx += 10);
+	if (keycode == UPARROW)
+		return (info->firsty += 10);
+	if (keycode == DOWNARROW)
+		return (info->firsty -= 10);
+	return (0);
 }

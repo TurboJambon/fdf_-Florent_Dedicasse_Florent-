@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 05:04:16 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/03 05:05:25 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/04 16:59:52 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_trace(t_point a, t_point b, t_env *e)
 	color = WHITE;
 	seg.dx = b.x - a.x;
 	seg.dy = b.y - a.y;
-	seg.l = ABS(seg.dx) > ABS(seg.dy) ? ABS(seg.dx) : ABS(seg.dy);
+	seg.l = fabsf(seg.dx) > fabsf(seg.dy) ? fabsf(seg.dx) : fabsf(seg.dy);
 	seg.dxl = seg.dx / seg.l;
 	seg.dyl = seg.dy / seg.l;
 	i = 0;

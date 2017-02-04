@@ -6,13 +6,12 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/03 05:10:39 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/04 15:54:52 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
-#define ABS(x) (x < 0 ? -x : x)
 
 t_point	**apply_z(t_point **map, t_info info)
 {
@@ -98,11 +97,9 @@ int		key_hook(int keycode, t_env *e)
 {
 	if (keycode == 53)
 		exit(0);
-	if (keycode == 69 || keycode == 78 || keycode == 116 || keycode == 121 ||
-		(keycode >= 123 && keycode <= 126))
+	if (change_info(&e->info, keycode))
 	{
 		mlx_clear_window(e->mlx, e->win);
-		change_info(&e->info, keycode);
 		ft_wireframe(recalc(e->map.map, e->info), e, e->info);
 	}
 	return (0);
