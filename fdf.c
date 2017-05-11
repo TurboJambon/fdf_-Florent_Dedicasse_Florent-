@@ -6,12 +6,12 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/04 15:54:52 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/18 19:06:59 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
 #include <stdio.h>
+#include "fdf.h"
 
 t_point	**apply_z(t_point **map, t_info info)
 {
@@ -52,17 +52,17 @@ t_point	**recalc(t_point **map, t_info info)
 		while (j < info.mapx)
 		{
 			ret[i][j] = ft_newpoint(((j
-			* info.sq_size + info.sq_size / 2) + (((i - 1) * info.sq_size) / 2))
-			- j * info.sq_size / 2 + info.firstx, ((((i * info.sq_size) / 2))
-			- j * info.sq_size / 2 + info.firsty * 1.3) / 2,
+			* info.sq_size + info.sq_size / info.angle) + (((i - 1) *
+			info.sq_size) / info.angle)) - j * info.sq_size / info.angle +
+			info.firstx, ((((i * info.sq_size) / info.angle))
+			- j * info.sq_size / info.angle + info.firsty * 1.3) / 2,
 			map[i][j].z);
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-	ret = apply_z(ret, info);
-	return (ret);
+	return (ret = apply_z(ret, info));
 }
 
 void	ft_wireframe(t_point **map, t_env *e, t_info info)

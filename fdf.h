@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/04 16:22:59 by niragne          ###   ########.fr       */
+/*   Updated: 2017/02/18 19:05:27 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # define PGDOWN 121
 # define KP_MINUS 78
 # define KP_PLUS 69
+# define S 1
+# define D 2
+# define A 0
 
 typedef struct	s_map
 {
@@ -66,6 +69,7 @@ typedef struct	s_info
 	int		lowest;
 	int		scale;
 	int		scalebase;
+	float	angle;
 }				t_info;
 
 typedef struct	s_env
