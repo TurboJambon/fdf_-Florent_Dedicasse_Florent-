@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:22:33 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/11 17:33:04 by niragne          ###   ########.fr       */
+/*   Updated: 2017/05/27 15:26:46 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char		***ft_getmap(int fd)
 
 	tmp = fd_to_str(fd);
 	ret = ft_strsplit(tmp, '\n');
-	slt = (char***)malloc(sizeof(char**) * ft_tablen(ret) + 1);
+	if (!(slt = (char***)malloc(sizeof(char**) * ft_tablen(ret) + 1)))
+		return (NULL);
 	i = 0;
 	while (ret[i])
 	{

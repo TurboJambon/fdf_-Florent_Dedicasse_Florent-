@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/18 19:05:27 by niragne          ###   ########.fr       */
+/*   Updated: 2017/05/27 15:18:47 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,6 @@ int				*get_map_dims(char ***map);
 t_info			ft_get_info(char ***map);
 int				ft_puterr(char *str);
 int				change_info(t_info *info, int keycode);
+void			free_points(t_point **arr, int mapy);
+
 #endif

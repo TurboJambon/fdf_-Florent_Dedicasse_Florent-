@@ -6,7 +6,7 @@
 /*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/18 19:06:59 by niragne          ###   ########.fr       */
+/*   Updated: 2017/05/27 15:37:52 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,17 @@ void	ft_wireframe(t_point **map, t_env *e, t_info info)
 
 int		key_hook(int keycode, t_env *e)
 {
+	t_point	**tmp;
+
+
 	if (keycode == 53)
 		exit(0);
 	if (change_info(&e->info, keycode))
 	{
+		tmp = recalc(e->map.map, e->info);
 		mlx_clear_window(e->mlx, e->win);
-		ft_wireframe(recalc(e->map.map, e->info), e, e->info);
+		ft_wireframe(tmp, e, e->info);
+		free_points(tmp, e->info.mapy);
 	}
 	return (0);
 }
@@ -110,6 +115,7 @@ int		main(int ac, char **av)
 	int		fd;
 	char	***map;
 	t_env	e;
+	t_point	**tmp;
 
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
@@ -125,8 +131,10 @@ int		main(int ac, char **av)
 	mlx_put_image_to_window(e.mlx, e.win, e.image, 0, 0);
 	e.map.map = convert_map(map, e.info);
 	apply_z(e.map.map, e.info);
-	ft_wireframe(apply_z(e.map.map, e.info), &e, e.info);
-	mlx_key_hook(e.win, key_hook, &e);
+	tmp = apply_z(e.map.map, e.info);
+	ft_wireframe(tmp, &e, e.info);
+	free_points(tmp, e.info.mapy);
+	mlx_hook(e.win, 2, 3, key_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);
 }
