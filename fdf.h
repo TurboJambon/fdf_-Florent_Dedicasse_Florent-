@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/27 15:18:47 by niragne          ###   ########.fr       */
+/*   Updated: 2017/05/29 18:24:06 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,7 @@ t_info			ft_get_info(char ***map);
 int				ft_puterr(char *str);
 int				change_info(t_info *info, int keycode);
 void			free_points(t_point **arr, int mapy);
+void			free_map(char ***map, int mapy, int mapx);
+void			free_double(char **tab, int mapy);
 
 #endif

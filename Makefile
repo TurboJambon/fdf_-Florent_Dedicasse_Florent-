@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niragne <niragne@student.42.fr>            +#+  +:+       +#+         #
+#    By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/18 16:55:07 by niragne           #+#    #+#              #
-#    Updated: 2017/05/27 14:55:22 by niragne          ###   ########.fr        #
+#    Updated: 2017/05/29 17:42:03 by dchirol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIB_LINK    =   -L. $(LIB)
 INC_DIR     =   includes
 INCS        =   -I $(LIB_PATH) -I $(INC_DIR)
 SRC_DIR     =   
-SRC         =   fdf.c ft_map.c info.c
+SRC         =   fdf.c ft_map.c info.c ft_puterr.c clean.c ft_trace.c
 OBJ_DIR     =   obj
 SRCS        =   $(addprefix $(SRC_DIR), $(SRC))
 OBJS        =   $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

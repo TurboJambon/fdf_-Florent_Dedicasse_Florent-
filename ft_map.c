@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:22:33 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/27 15:26:46 by niragne          ###   ########.fr       */
+/*   Updated: 2017/05/29 18:11:41 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ char		***ft_getmap(int fd)
 	ret = ft_strsplit(tmp, '\n');
 	if (!(slt = (char***)malloc(sizeof(char**) * ft_tablen(ret) + 1)))
 		return (NULL);
-	i = 0;
-	while (ret[i])
-	{
+	i = -1;
+	while (ret[++i])
 		slt[i] = ft_strsplit(ret[i], ' ');
-		i++;
-	}
 	slt[i] = NULL;
+	free_double(ret, ft_tablen(ret) + 1);
+	free(tmp);
 	return (slt);
 }
 
@@ -55,7 +54,8 @@ int			*get_map_dims(char ***map)
 
 	i = 0;
 	j = 0;
-	dims = malloc(sizeof(int) * 4);
+	if (!(dims = malloc(sizeof(int) * 4)))
+		return (NULL);
 	dims[0] = ft_tablen(map[0]);
 	dims[1] = ft_doubletablen(map);
 	dims[2] = 0;
@@ -84,10 +84,12 @@ t_point		**convert_map(char ***map, t_info info)
 
 	i = 0;
 	j = 0;
-	ret = malloc(sizeof(t_point*) * info.mapy);
+	if (!(ret = malloc(sizeof(t_point*) * info.mapy)))
+		return (NULL);
 	while (i < info.mapy)
 	{
-		ret[i] = malloc(sizeof(t_point) * info.mapx);
+		if (!(ret[i] = malloc(sizeof(t_point) * info.mapx)))
+			return (NULL);
 		while (j < info.mapx)
 		{
 			ret[i][j] = ft_newpoint(((j

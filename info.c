@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 17:03:01 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/11 17:33:06 by niragne          ###   ########.fr       */
+/*   Updated: 2017/05/29 17:49:18 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_info	ft_get_info(char ***map)
 	ret.scale = ret.sq_size / 3;
 	ret.scalebase = ret.scale;
 	ret.angle = 2;
+	free(dims);
 	return (ret);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/27 15:37:52 by niragne          ###   ########.fr       */
+/*   Updated: 2017/05/29 18:24:05 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ t_point	**apply_z(t_point **map, t_info info)
 
 	i = 0;
 	j = 0;
-	ret = malloc(sizeof(t_point*) * info.mapy);
+	if (!(ret = malloc(sizeof(t_point*) * info.mapy)))
+		return (NULL);
 	while (i < info.mapy)
 	{
-		ret[i] = malloc(sizeof(t_point) * info.mapx);
+		if (!(ret[i] = malloc(sizeof(t_point) * info.mapx)))
+			return (NULL);
 		while (j < info.mapx)
 		{
 			ret[i][j] = ft_newpoint(map[i][j].x,
@@ -45,10 +47,12 @@ t_point	**recalc(t_point **map, t_info info)
 
 	i = 0;
 	j = 0;
-	ret = malloc(sizeof(t_point*) * info.mapy);
+	if (!(ret = malloc(sizeof(t_point*) * info.mapy)))
+		return (NULL);
 	while (i < info.mapy)
 	{
-		ret[i] = malloc(sizeof(t_point) * info.mapx);
+		if (!(ret[i] = malloc(sizeof(t_point) * info.mapx)))
+			return (NULL);
 		while (j < info.mapx)
 		{
 			ret[i][j] = ft_newpoint(((j
@@ -97,7 +101,6 @@ int		key_hook(int keycode, t_env *e)
 {
 	t_point	**tmp;
 
-
 	if (keycode == 53)
 		exit(0);
 	if (change_info(&e->info, keycode))
@@ -130,6 +133,7 @@ int		main(int ac, char **av)
 	e.image = mlx_new_image(e.mlx, e.info.winx, e.info.winy);
 	mlx_put_image_to_window(e.mlx, e.win, e.image, 0, 0);
 	e.map.map = convert_map(map, e.info);
+	free_map(map, e.info.mapy, e.info.mapx);
 	apply_z(e.map.map, e.info);
 	tmp = apply_z(e.map.map, e.info);
 	ft_wireframe(tmp, &e, e.info);
