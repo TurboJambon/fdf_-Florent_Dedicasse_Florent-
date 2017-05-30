@@ -6,7 +6,7 @@
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/27 15:09:19 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/29 18:19:29 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/05/30 18:23:16 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,12 @@ void	free_double(char **tab, int mapy)
 		i++;
 	}
 	free(tab);
+}
+
+void	init_dims(int *dims, char ***map)
+{
+	dims[0] = ft_tablen(map[0]);
+	dims[1] = ft_doubletablen(map);
+	dims[2] = 0;
+	dims[3] = 0;
 }

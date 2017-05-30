@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/30 18:01:34 by niragne          ###   ########.fr       */
+/*   Updated: 2017/05/30 19:17:14 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,22 @@ t_point	**recalc(t_point **map, t_info info)
 	t_point **ret;
 	t_point	**tmp;
 
-	i = 0;
-	j = 0;
+	i = -1;
 	if (!(ret = malloc(sizeof(t_point*) * info.mapy)))
 		return (NULL);
-	while (i < info.mapy)
+	while (++i < info.mapy)
 	{
+		j = 0;
 		if (!(ret[i] = malloc(sizeof(t_point) * info.mapx)))
 			return (NULL);
 		while (j < info.mapx)
 		{
-			ret[i][j] = ft_newpoint(((j
-			* info.sq_size + info.sq_size / info.angle) + (((i - 1) *
-			info.sq_size) / info.angle)) - j * info.sq_size / info.angle +
-			info.firstx, ((((i * info.sq_size) / info.angle))
-			- j * info.sq_size / info.angle + info.firsty * 1.3) / 2,
-			map[i][j].z);
+			ret[i][j] = ft_newpoint(((j * SQ_SIZE + SQ_SIZE / ANGLE)
+			+ (((i - 1) * SQ_SIZE) / ANGLE)) - j * SQ_SIZE / ANGLE + FIRSTX,
+			((((i * SQ_SIZE) / ANGLE)) - j * SQ_SIZE /
+			ANGLE + FIRSTY * 1.3) / 2, map[i][j].z);
 			j++;
 		}
-		j = 0;
-		i++;
 	}
 	tmp = apply_z(ret, info);
 	free_points(ret, info.mapy);
@@ -84,14 +80,14 @@ void	ft_wireframe(t_point **map, t_env *e, t_info info)
 		while (j < info.mapx)
 		{
 			if (j < info.mapx - 1 &&
-				(map[i][j].x + info.sq_size > 0 && map[i][j].x - info.sq_size <
+				(map[i][j].x + SQ_SIZE > 0 && map[i][j].x - SQ_SIZE <
 				info.winx) && map[i][j].y +
-				info.sq_size > 0 && map[i][j].y - info.sq_size < info.winy)
+				SQ_SIZE > 0 && map[i][j].y - SQ_SIZE < info.winy)
 				ft_trace(map[i][j], map[i][j + 1], e);
 			if (i < info.mapy - 1 &&
-				(map[i][j].x + info.sq_size > 0 && map[i][j].x - info.sq_size <
+				(map[i][j].x + SQ_SIZE > 0 && map[i][j].x - SQ_SIZE <
 				info.winx) && map[i][j].y +
-				info.sq_size > 0 && map[i][j].y - info.sq_size < info.winy)
+				SQ_SIZE > 0 && map[i][j].y - SQ_SIZE < info.winy)
 				ft_trace(map[i][j], map[i + 1][j], e);
 			j++;
 		}
@@ -124,7 +120,7 @@ int		main(int ac, char **av)
 	t_point	**tmp;
 
 	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || ac != 2)
 		return (ft_puterr(ERR_FILE));
 	map = ft_getmap(fd);
 	if (ft_checkmap(map) == -1)

@@ -6,7 +6,7 @@
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:22:33 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/29 18:46:54 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/05/30 19:18:12 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char		***ft_getmap(int fd)
 	char	**ret;
 	char	***slt;
 	int		i;
-	int		len;
 
 	tmp = fd_to_str(fd);
 	ret = ft_strsplit(tmp, '\n');
@@ -56,10 +55,7 @@ int			*get_map_dims(char ***map)
 	j = 0;
 	if (!(dims = malloc(sizeof(int) * 4)))
 		return (NULL);
-	dims[0] = ft_tablen(map[0]);
-	dims[1] = ft_doubletablen(map);
-	dims[2] = 0;
-	dims[3] = 0;
+	init_dims(dims, map);
 	while (map[i])
 	{
 		while (map[i][j])
@@ -114,7 +110,7 @@ int			ft_checkmap(char ***map)
 	i = 1;
 	while (map[i])
 	{
-		if (ft_tablen(map[i]) != max)
+		if ((int)ft_tablen(map[i]) != max)
 			return (-1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/29 18:24:06 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/05/30 18:18:17 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <math.h>
 # include <mlx.h>
 # include <stdlib.h>
+# define SQ_SIZE info.sq_size
+# define ANGLE info.angle
+# define FIRSTX info.firstx
+# define FIRSTY info.firsty
 # define ERR_WINDOW "window error"
 # define ERR_FILE "file error"
 # define ERR_MAP "map error"
@@ -93,5 +97,6 @@ int				change_info(t_info *info, int keycode);
 void			free_points(t_point **arr, int mapy);
 void			free_map(char ***map, int mapy, int mapx);
 void			free_double(char **tab, int mapy);
+void			init_dims(int *dims, char ***map);
 
 #endif

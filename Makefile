@@ -6,13 +6,13 @@
 #    By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/18 16:55:07 by niragne           #+#    #+#              #
-#    Updated: 2017/05/29 17:42:03 by dchirol          ###   ########.fr        #
+#    Updated: 2017/05/30 19:19:44 by dchirol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        =   fdf
-CC          =   gcc 
-CFLAGS      =   -lmlx -framework OpenGL -framework Appkit
+CC          =   cc 
+CFLAGS      =   -Wall -Werror -Wextra -lmlx -framework OpenGL -framework Appkit
 LIB_PATH    =   libft
 LIB         =   $(LIB_PATH)/libft.a
 LIB_LINK    =   -L. $(LIB)
