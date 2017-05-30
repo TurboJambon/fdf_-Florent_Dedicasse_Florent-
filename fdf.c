@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 20:07:35 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/29 18:55:34 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/05/30 18:01:34 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_point	**recalc(t_point **map, t_info info)
 	int		i;
 	int		j;
 	t_point **ret;
+	t_point	**tmp;
 
 	i = 0;
 	j = 0;
@@ -66,7 +67,9 @@ t_point	**recalc(t_point **map, t_info info)
 		j = 0;
 		i++;
 	}
-	return (ret = apply_z(ret, info));
+	tmp = apply_z(ret, info);
+	free_points(ret, info.mapy);
+	return (tmp);
 }
 
 void	ft_wireframe(t_point **map, t_env *e, t_info info)
@@ -137,7 +140,6 @@ int		main(int ac, char **av)
 	apply_z(e.map.map, e.info);
 	tmp = apply_z(e.map.map, e.info);
 	ft_wireframe(tmp, &e, e.info);
-	free_points(tmp, e.info.mapy);
 	mlx_hook(e.win, 2, 3, key_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);
