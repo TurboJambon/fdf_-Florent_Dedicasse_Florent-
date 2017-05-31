@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/12 20:22:33 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/30 19:18:12 by dchirol          ###   ########.fr       */
+/*   Created: 2017/05/31 13:04:33 by dchirol           #+#    #+#             */
+/*   Updated: 2017/05/31 13:45:41 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ char		***ft_getmap(int fd)
 	int		i;
 
 	tmp = fd_to_str(fd);
-	ret = ft_strsplit(tmp, '\n');
-	if (!(slt = (char***)malloc(sizeof(char**) * ft_tablen(ret) + 1)))
-		return (NULL);
+	if (!(ret = ft_strsplit(tmp, '\n')))
+		ft_puterr_exit("J'sais pas ce que t'essayes de faire mais ca marche pas :(\n");
+	if (!(slt = (char***)malloc(sizeof(char**) * (ft_tablen(ret) + 1))))
+		ft_puterr_exit("Soit y'a plus de RAM soit t'es vraiment pas sympa\n");;
 	i = -1;
 	while (ret[++i])
 		slt[i] = ft_strsplit(ret[i], ' ');

@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_foreach.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 17:34:42 by niragne           #+#    #+#             */
-/*   Updated: 2016/11/09 17:37:26 by niragne          ###   ########.fr       */
+/*   Created: 2017/05/31 12:21:22 by dchirol           #+#    #+#             */
+/*   Updated: 2017/05/31 13:50:03 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	ft_foreach(int *tab, int length, void (*f)(int))
 {

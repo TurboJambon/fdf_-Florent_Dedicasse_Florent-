@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/12 20:07:29 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/30 18:18:17 by dchirol          ###   ########.fr       */
+/*   Created: 2017/05/31 13:45:07 by dchirol           #+#    #+#             */
+/*   Updated: 2017/05/31 13:45:11 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # define ANGLE info.angle
 # define FIRSTX info.firstx
 # define FIRSTY info.firsty
-# define ERR_WINDOW "window error"
-# define ERR_FILE "file error"
-# define ERR_MAP "map error"
+# define ERR_WINDOW "window error\n"
+# define ERR_FILE "file error\n"
+# define ERR_MAP "map error\n"
 # define WIN_X 2560 / 2
 # define WIN_Y 1440 / 2
 # define LEFTARROW 123
@@ -98,5 +98,6 @@ void			free_points(t_point **arr, int mapy);
 void			free_map(char ***map, int mapy, int mapx);
 void			free_double(char **tab, int mapy);
 void			init_dims(int *dims, char ***map);
+void			ft_puterr_exit(char *str);
 
 #endif

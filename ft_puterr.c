@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_puterr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/18 20:44:03 by niragne           #+#    #+#             */
-/*   Updated: 2017/05/11 17:33:05 by niragne          ###   ########.fr       */
+/*   Created: 2017/05/31 12:59:05 by dchirol           #+#    #+#             */
+/*   Updated: 2017/05/31 13:45:43 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,10 @@ int		ft_puterr(char *str)
 {
 	ft_putstr_fd(str, 2);
 	return (-1);
+}
+
+void	ft_puterr_exit(char *str)
+{
+	ft_putstr_fd(str, 2);
+	exit(0);
 }
