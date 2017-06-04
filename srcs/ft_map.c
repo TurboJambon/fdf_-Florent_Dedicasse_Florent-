@@ -6,7 +6,7 @@
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 13:04:33 by dchirol           #+#    #+#             */
-/*   Updated: 2017/06/04 14:05:16 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/06/04 14:18:23 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char		***ft_getmap(int fd)
 	i = -1;
 	while (ret[++i])
 		slt[i] = ft_strsplit(ret[i], ' ');
-	if (!(ft_isdigit(***slt)))
+	if (!(ft_isdigit(***slt)) && ***slt != '-' && ***slt != '+')
 		ft_puterr_exit("File Error");
 	slt[i] = NULL;
 	free_double(ret, ft_tablen(ret) + 1);
