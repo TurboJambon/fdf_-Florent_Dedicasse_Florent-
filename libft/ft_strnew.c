@@ -6,7 +6,7 @@
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 12:21:22 by dchirol           #+#    #+#             */
-/*   Updated: 2017/05/31 13:49:49 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/06/04 13:24:34 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ char	*ft_strnew(size_t size)
 {
 	char *s;
 
-	s = malloc(sizeof(char) * size + 1);
-	if (!(s))
+	if (!(s = malloc(sizeof(char) * size + 1)))
 		return (NULL);
 	ft_bzero(s, size + 1);
 	return (s);

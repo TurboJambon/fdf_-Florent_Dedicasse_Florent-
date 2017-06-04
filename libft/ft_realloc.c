@@ -6,30 +6,29 @@
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 12:21:22 by dchirol           #+#    #+#             */
-/*   Updated: 2017/05/31 13:49:30 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/06/04 12:49:46 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*ft_realloc(void *ptr, size_t size, size_t len)
 {
 	char	*newptr;
 
-	if (!size && ptr)
+	if (!ptr)
 	{
-		if (!(newptr = (char *)malloc(1)))
+		if (!(newptr = (char *)malloc(size)))
 			return (NULL);
-		ft_memdel(&ptr);
 		return (newptr);
 	}
 	if (!(newptr = (char *)malloc(size)))
 		return (NULL);
 	if (ptr)
 	{
-		ft_memcpy(newptr, ptr, size);
-		ft_memdel(&ptr);
+		ft_memmove(newptr, ptr, len);
+		free(ptr);
 	}
 	return (newptr);
 }

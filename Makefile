@@ -6,7 +6,7 @@
 #    By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/18 16:55:07 by niragne           #+#    #+#              #
-#    Updated: 2017/05/30 19:53:28 by dchirol          ###   ########.fr        #
+#    Updated: 2017/06/04 13:17:12 by dchirol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,10 @@ CFLAGSMLX	=	-lmlx -framework OpenGL -framework AppKit
 LIB_PATH	=	libft
 LIB			=	$(LIB_PATH)/libft.a
 
-INC_DIR		=	.
+INC_DIR		=	includes
 INCS		=	-I $(INC_DIR) -I $(LIB_PATH)
 
-SRC_DIR		=	.
+SRC_DIR		=	srcs
 SRC			=	fdf.c \
 				clean.c \
 				ft_map.c \
@@ -29,7 +29,7 @@ SRC			=	fdf.c \
 				ft_trace.c \
 				info.c
 
-OBJ_DIR		=	.
+OBJ_DIR		=	obj
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC))
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
@@ -37,10 +37,10 @@ OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 all: $(NAME)
 
-$(NAME): lib $(OBJS)
+$(NAME): $(LIB) $(OBJS)
 	$(CC) $(CFLAGS) -o FdF $(OBJS) $(CFLAGSMLX) $(LIB)
 
-lib:
+$(LIB):
 	make -C $(LIB_PATH)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

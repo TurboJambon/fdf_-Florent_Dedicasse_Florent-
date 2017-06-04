@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 16:35:33 by niragne           #+#    #+#             */
-/*   Updated: 2017/02/02 22:51:16 by niragne          ###   ########.fr       */
+/*   Created: 2017/06/04 12:49:11 by dchirol           #+#    #+#             */
+/*   Updated: 2017/06/04 12:51:42 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# define BUFF_SIZE 32
+# define BUFF_SIZE 100000
 
 typedef struct	s_list
 {
@@ -126,7 +126,7 @@ char			*ft_strtolower(char *str);
 void			ft_swap(int *a, int *b);
 void			ft_foreach(int *tab, int length, void (*f)(int));
 char			*ft_rot(char *str, int r);
-void			*ft_realloc(void *ptr, size_t size);
+void			*ft_realloc(void *ptr, size_t size, size_t len);
 char			*fd_to_str(int fd);
 
 #endif

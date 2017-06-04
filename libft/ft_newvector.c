@@ -6,7 +6,7 @@
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 12:21:22 by dchirol           #+#    #+#             */
-/*   Updated: 2017/05/31 13:49:25 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/06/04 13:23:18 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ t_vector		*ft_newvector(int x, int y, int z)
 {
 	t_vector *vector;
 
-	vector = malloc(sizeof(t_vector));
-	if (!vector)
+	if (!(vector = malloc(sizeof(t_vector))))
 		return (NULL);
 	vector->x = x;
 	vector->y = y;
