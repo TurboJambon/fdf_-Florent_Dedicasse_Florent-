@@ -6,7 +6,7 @@
 /*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 13:04:33 by dchirol           #+#    #+#             */
-/*   Updated: 2017/06/04 13:14:36 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/06/04 13:56:15 by dchirol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char		***ft_getmap(int fd)
 	int		i;
 
 	tmp = fd_to_str(fd);
+	if (!(ft_isdigit(*tmp)))
+		ft_puterr_exit("File Error");
 	if (!(ret = ft_strsplit(tmp, '\n')))
 		ft_puterr_exit(
 		"J'sais pas ce que t'essayes de faire mais ca marche pas :(\n");

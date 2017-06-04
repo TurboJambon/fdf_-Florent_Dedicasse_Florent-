@@ -6,11 +6,11 @@
 #    By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/18 16:55:07 by niragne           #+#    #+#              #
-#    Updated: 2017/06/04 13:17:12 by dchirol          ###   ########.fr        #
+#    Updated: 2017/06/04 13:52:12 by dchirol          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	FdF
+NAME		=	fdf
 CC			=	gcc
 CFLAGS		=	-Werror -Wall -Wextra
 CFLAGSMLX	=	-lmlx -framework OpenGL -framework AppKit
@@ -37,8 +37,11 @@ OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJS)
-	$(CC) $(CFLAGS) -o FdF $(OBJS) $(CFLAGSMLX) $(LIB)
+$(NAME): obj $(LIB) $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(CFLAGSMLX) $(LIB)
+
+obj:
+	mkdir obj
 
 $(LIB):
 	make -C $(LIB_PATH)
