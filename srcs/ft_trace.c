@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_trace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 13:45:45 by dchirol           #+#    #+#             */
-/*   Updated: 2017/05/31 13:45:46 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/06/10 13:37:47 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_trace(t_point a, t_point b, t_env *e)
 	i = 0;
 	while (i < seg.l)
 	{
-		mlx_pixel_put(e->image, e->win, a.x + seg.dxl *
+		ft_putpixel(&e->image, a.x + seg.dxl *
 		i, a.y + seg.dyl * i, color);
 		i++;
 	}

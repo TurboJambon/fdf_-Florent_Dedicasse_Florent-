@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+         #
+#    By: niragne <niragne@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/18 16:55:07 by niragne           #+#    #+#              #
-#    Updated: 2017/06/04 13:52:12 by dchirol          ###   ########.fr        #
+#    Updated: 2017/06/10 13:29:30 by niragne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	fdf
 CC			=	gcc
 CFLAGS		=	-Werror -Wall -Wextra
-CFLAGSMLX	=	-lmlx -framework OpenGL -framework AppKit
+CFLAGSMLX	=	-framework OpenGL -framework AppKit
 
 LIB_PATH	=	libft
 LIB			=	$(LIB_PATH)/libft.a
@@ -27,7 +27,8 @@ SRC			=	fdf.c \
 				ft_map.c \
 				ft_puterr.c \
 				ft_trace.c \
-				info.c
+				info.c \
+				image.c
 
 OBJ_DIR		=	obj
 
@@ -38,7 +39,7 @@ OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): obj $(LIB) $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(CFLAGSMLX) $(LIB)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(CFLAGSMLX) $(LIB) libmlx.a
 
 obj:
 	mkdir obj

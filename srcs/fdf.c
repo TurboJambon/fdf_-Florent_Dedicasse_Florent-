@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 13:00:52 by dchirol           #+#    #+#             */
-/*   Updated: 2017/05/31 13:45:39 by dchirol          ###   ########.fr       */
+/*   Updated: 2017/06/10 13:49:56 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	ft_wireframe(t_point **map, t_env *e, t_info info)
 		j = 0;
 		i++;
 	}
+	mlx_put_image_to_window(e->mlx, e->win, e->image.image, 0, 0);
 }
 
 int		key_hook(int keycode, t_env *e)
@@ -105,7 +106,7 @@ int		key_hook(int keycode, t_env *e)
 	if (change_info(&e->info, keycode))
 	{
 		tmp = recalc(e->map.map, e->info);
-		mlx_clear_window(e->mlx, e->win);
+		ft_clear_image(&e->image, 0b00000000000000000000000000000000);
 		ft_wireframe(tmp, e, e->info);
 		free_points(tmp, e->info.mapy);
 	}
@@ -129,8 +130,7 @@ int		main(int ac, char **av)
 	if (!(e.mlx = mlx_init()))
 		return (ft_puterr(ERR_WINDOW));
 	e.win = mlx_new_window(e.mlx, e.info.winx, e.info.winy, "fdf");
-	e.image = mlx_new_image(e.mlx, e.info.winx, e.info.winy);
-	mlx_put_image_to_window(e.mlx, e.win, e.image, 0, 0);
+	e.image = ft_new_image(e.mlx, e.info.winx, e.info.winy);
 	e.map.map = convert_map(map, e.info);
 	free_map(map, e.info.mapy, e.info.mapx);
 	apply_z(e.map.map, e.info);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchirol <dchirol@student.42.fr>            +#+  +:+       +#+        */
+/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/31 13:45:07 by dchirol           #+#    #+#             */
-/*   Updated: 2017/06/04 13:14:33 by dchirol          ###   ########.fr       */
+/*   Created: 2017/06/10 13:31:14 by niragne           #+#    #+#             */
+/*   Updated: 2017/06/10 13:54:35 by niragne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@
 # define BLUE 0xFF
 # define GREEN 0xFF00
 # define RED 0xFF0000
-# include <mlx.h>
+# include "mlx.h"
 # include "libft.h"
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
 # include <stdlib.h>
 # define SQ_SIZE info.sq_size
 # define ANGLE info.angle
@@ -43,6 +42,8 @@
 # define S 1
 # define D 2
 # define A 0
+
+typedef unsigned int	t_uint;
 
 typedef struct	s_map
 {
@@ -77,11 +78,21 @@ typedef struct	s_info
 	float	angle;
 }				t_info;
 
+typedef struct	s_image
+{
+	void	*image;
+	t_uint	*data;
+	int		bpp;
+	int		sizeline;
+	int		line;
+	int		endian;
+}				t_image;
+
 typedef struct	s_env
 {
 	void	*mlx;
 	void	*win;
-	void	*image;
+	t_image image;
 	t_info	info;
 	t_map	map;
 }				t_env;
@@ -100,5 +111,8 @@ void			free_map(char ***map, int mapy, int mapx);
 void			free_double(char **tab, int mapy);
 void			init_dims(int *dims, char ***map);
 void			ft_puterr_exit(char *str);
+t_image			ft_new_image(void *mlx, int x, int y);
+void			ft_putpixel(t_image *image, int x, int y, t_uint color);
+void			ft_clear_image(t_image *img, t_uint color);
 
 #endif
